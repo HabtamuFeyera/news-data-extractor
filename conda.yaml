@@ -1,0 +1,11 @@
+channels:
+  - conda-forge
+
+dependencies:
+  - python=3.10.12
+  - pip=23.2.1
+  - robocorp-truststore=0.8.0
+  - rpaframework==9.6.0   # Update to the latest version
+  - robocorp==2.0.2
+  - robocorp-browser==2.2.1
+  - pandas==2.2.2
