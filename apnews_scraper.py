@@ -44,7 +44,7 @@ class ApnewsScraper:
             logger.error(f"Error opening website: {e}")
 
     def open_search_option(self):
-        search_button_xpath = "//button[@aria-label='Search']"
+        search_button_xpath = '//*[@id="Page-header-trending-zephr"]/div[1]/div[3]/bsp-search-overlay/div/form/label/input'
         try:
             search_button = WebDriverWait(self.browser.driver, 10).until(
                 EC.element_to_be_clickable((By.XPATH, search_button_xpath))
@@ -153,9 +153,17 @@ class ApnewsScraper:
                 logger.error(f"Error occurred: {e}")
                 break
 
+        logger.info("Extracted data successfully:")
+        for key, value in data.items():
+            logger.info(f"{key}: {len(value)}")
+
         df = pd.DataFrame(data)
-        df.to_excel(self.excel_file, index=False)
-        logger.info(f"Data saved to {self.excel_file}")
+        logger.info(df.head())  # Log the first few rows of the DataFrame
+        try:
+            df.to_excel(self.excel_file, index=False)
+            logger.info(f"Data saved to {self.excel_file}")
+        except Exception as e:
+            logger.error(f"Error saving data to Excel: {e}")
 
     def download_picture(self, url):
         try:
